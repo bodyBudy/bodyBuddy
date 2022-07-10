@@ -37,14 +37,7 @@ export const checkIsNicknameDuplicated = async (nickname: string) => {
   }
 };
 
-export const signUpMember = async ({
-  nickname,
-  email,
-  gender,
-  city,
-  district,
-  signUpway,
-}: usertype) => {
+export const signUpMember = async ({ nickname, email, gender, city, district }: usertype) => {
   try {
     await addDoc(collection(db, 'user'), {
       nickname,
@@ -52,8 +45,6 @@ export const signUpMember = async ({
       gender,
       city,
       district,
-      signUpway,
-      isWithdrawal: false,
     });
   } catch (e) {
     console.log(e);

@@ -5,5 +5,4 @@ export interface usertype {
   gender: boolean;
   city: string;
   district: string;
-  signUpway: string;
 }

@@ -59,7 +59,6 @@ const KakaoLogin = () => {
         const payload = {
           email: data.userInfo.email,
           gender: data.userInfo.gender === 'female' ? false : true,
-          signUpway: 'kakao',
         };
         dispatch(loginEmail(payload));
         Router.push('/signUp/checkCategory');

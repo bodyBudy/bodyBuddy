@@ -1,16 +1,14 @@
-import { FixedBottomButton } from '@components/common/button';
+import { FixedBottomLinkButton } from '@components/common/button';
 import { Select } from '@components/common/select';
 import { ImageUploader } from '@components/common/uploader';
 import StepHeader from '@components/layout/signUp/StepHeader';
 import { healthEvents, healthPurpose } from '@data';
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { trainerSignUpstep1 } from 'redux/trainerSlice';
+import React, { useState } from 'react';
 
 const StyledStep = styled.section`
   margin: 40px 0 0 21px;
-  padding-bottom: 55px;
+  padding-bottom: 100px;
 
   label {
     display: block;
@@ -51,17 +49,11 @@ const StyledStep = styled.section`
     label {
       margin-bottom: 10px;
     }
-
     span {
       display: block;
       font-size: 12px;
       margin-bottom: 10px;
       color: #888787;
-    }
-
-    div {
-      position: relative;
-      left: -5px;
     }
   }
 
@@ -98,40 +90,12 @@ const StyledStep = styled.section`
 `;
 
 const Step1 = () => {
-  const dispatch = useDispatch();
-  const [field, setField] = useState('종목');
+  const [events, setEvents] = useState('종목');
   const [purpose, setPurpose] = useState('분야');
   const [commentLen, setCommentLen] = useState(0);
   const [comment, setComment] = useState('');
   const [userName, setUserName] = useState('');
-  const [profileImg, setProfileImg] = useState(['', '', '']);
-  const [isValidButton, setIsValidButton] = useState(false);
-
-  useEffect(() => {
-    if (
-      field !== '종목' &&
-      purpose !== '분야' &&
-      commentLen >= 1 &&
-      commentLen <= 20 &&
-      profileImg[0] !== '' &&
-      userName.length >= 1
-    ) {
-      setIsValidButton(true);
-    } else {
-      setIsValidButton(false);
-    }
-  }, [field, purpose, commentLen, userName, profileImg]);
-
-  const onClickNextStep = () => {
-    const payload = {
-      name: userName,
-      field,
-      purpose,
-      introduction: comment,
-      images: profileImg,
-    };
-    dispatch(trainerSignUpstep1(payload));
-  };
+  const [profileImg, setProfileImg] = useState([]);
 
   const onChangeInput = (e: React.SyntheticEvent) => {
     if (!(e.target instanceof HTMLInputElement)) return;
@@ -162,10 +126,10 @@ const Step1 = () => {
           <label>종목 및 분야</label>
           <div>
             <Select
-              currentSelectedData={field}
+              currentSelectedData={events}
               selectData={healthEvents}
               selectWidth={142}
-              onSetCurrentSelected={setField}
+              onSetCurrentSelected={setEvents}
             />
             <Select
               currentSelectedData={purpose}
@@ -191,12 +155,6 @@ const Step1 = () => {
           <span className="comment-len">{commentLen}/20</span>
         </div>
       </StyledStep>
-      <FixedBottomButton
-        isValid={isValidButton}
-        buttonTitle={'다음'}
-        buttonType={'button'}
-        onButtonEvent={onClickNextStep}
-      />
     </>
   );
 };

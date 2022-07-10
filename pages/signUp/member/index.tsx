@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { CheckIsValidNickname } from '@components/common/input';
 import Router from 'next/router';
+import useCheckUserEmail from 'hooks/useCheckUserEmail';
 
 const StyledStep = styled.div`
   margin: 40px 0 0 21px;
@@ -79,7 +80,6 @@ const Step1 = () => {
         gender: userInfo.gender,
         city: cityInfo,
         district: districtInfo,
-        signUpway: userInfo.signUpway,
       });
       Router.push('/signUp/member/complete');
     } catch (e) {
